@@ -4,17 +4,33 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 
+/**
+ * Class CustomerService
+ * @package App\Services
+ */
 class CustomerService
 {
+    /**
+     * @var Client
+     */
     private $client;
+    /**
+     * @var string
+     */
     private $baseUrl;
 
+    /**
+     * CustomerService constructor.
+     */
     public function __construct()
     {
         $this->client = new Client();
         $this->baseUrl = 'http://159.65.107.158/api/v1/';
     }
 
+    /**
+     * @return \Psr\Http\Message\StreamInterface
+     */
     public function create()
     {
         $response = $this->client->post($this->baseUrl . 'customers', [
@@ -27,6 +43,9 @@ class CustomerService
         return $response->getBody();
     }
 
+    /**
+     * @return \Psr\Http\Message\StreamInterface
+     */
     public function createOrder()
     {
         $newCustomer = json_decode($this->create());
